@@ -1,6 +1,7 @@
 from sqlalchemy import Table, MetaData, Column, Integer, String, Date, ForeignKey
 from sqlalchemy.orm import mapper, relationship
 
+# The ORM imports (depends on/knows about) the domain model, and not the other way around
 import model
 
 
@@ -36,6 +37,8 @@ allocations = Table(
 
 def start_mappers():
     lines_mapper = mapper(model.OrderLine, order_lines)
+    # Configure SQLAlchemy to map it's internal table models to our domain models
+    # https://docs.sqlalchemy.org/en/14/orm/mapping_styles.html#classical-mappings
     mapper(
         model.Batch,
         batches,
